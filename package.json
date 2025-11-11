@@ -1,0 +1,33 @@
+{
+  "name": "learn-assamese",
+  "version": "0.1.0",
+  "description": "AI-powered language learning platform for Assamese diaspora communities",
+  "main": "index.js",
+  "scripts": {
+    "research": "research-swarm",
+    "research:init": "research-swarm init",
+    "research:list": "research-swarm list",
+    "research:quick": "research-swarm research researcher",
+    "research:goal": "research-swarm goal-research"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:21054/git/mondweep/learn-assamese"
+  },
+  "keywords": [
+    "assamese",
+    "language-learning",
+    "education",
+    "diaspora",
+    "cultural-preservation",
+    "ai",
+    "nlp",
+    "sarvam-ai",
+    "duolingo-style"
+  ],
+  "author": "Assamese Diaspora Community",
+  "license": "ISC",
+  "dependencies": {
+    "research-swarm": "^1.2.2"
+  }
+}
