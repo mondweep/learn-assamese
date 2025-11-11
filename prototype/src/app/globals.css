@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Assamese:wght@400;500;600;700&display=swap');
+
+@layer base {
+  body {
+    @apply bg-assamese-bg text-gray-900;
+  }
+}
+
+@layer components {
+  .assamese-text {
+    font-family: 'Noto Sans Assamese', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2D3748;
+  }
+
+  .romanization {
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: #718096;
+  }
+
+  .lesson-card {
+    @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 cursor-pointer;
+  }
+
+  .exercise-option {
+    @apply border-2 border-gray-300 rounded-lg p-4 cursor-pointer hover:border-assamese-primary transition-colors;
+  }
+
+  .exercise-option-correct {
+    @apply border-assamese-success bg-green-50;
+  }
+
+  .exercise-option-incorrect {
+    @apply border-red-500 bg-red-50;
+  }
+}
