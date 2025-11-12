@@ -215,7 +215,7 @@ For feedback and suggestions, see the About page in the app.
 
 ## 📜 License
 
-ISC
+MIT License - This project is open source and free to use, modify, and distribute.
 
 ## 🙏 Acknowledgments
 
