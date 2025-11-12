@@ -113,7 +113,23 @@ npm run build
 npm run start
 ```
 
-### Deploy to Vercel
+### Deploy to Netlify (Recommended)
+
+**Quick Deploy via Dashboard:**
+1. Go to https://app.netlify.com/
+2. "Add new site" → "Import from Git"
+3. Select repository and branch
+4. Set base directory: `prototype`
+5. Build command: `npm run build`
+6. Publish directory: `.next`
+7. Add environment variables:
+   - `NEXT_PUBLIC_SARVAM_API_KEY`
+   - `SARVAM_AP_API_KEY`
+8. Deploy!
+
+**Full guide:** See [NETLIFY_DEPLOY.md](./NETLIFY_DEPLOY.md)
+
+### Deploy to Vercel (Alternative)
 
 ```bash
 # Install Vercel CLI
