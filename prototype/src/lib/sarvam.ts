@@ -1,7 +1,12 @@
 // Sarvam AI API Client for Learn Assamese
+// Now with Azure Speech Service for TTS
 
 const SARVAM_API_KEY = process.env.NEXT_PUBLIC_SARVAM_API_KEY || process.env.SARVAM_AP_API_KEY || '';
 const SARVAM_BASE_URL = 'https://api.sarvam.ai';
+
+// Azure Speech Service configuration
+const AZURE_SPEECH_KEY = process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY || process.env.AZURE_SPEECH_KEY || '';
+const AZURE_REGION = process.env.NEXT_PUBLIC_AZURE_REGION || process.env.AZURE_REGION || 'eastus';
 
 // Mock data for demo when API is not available
 const mockTranslations: Record<string, string> = {
@@ -93,60 +98,75 @@ export class SarvamClient {
   }
 
   /**
-   * Convert Assamese text to speech
+   * Convert Assamese text to speech using Azure Speech Service
    * Returns base64 encoded audio data
    *
-   * NOTE: Sarvam AI TTS does NOT support Assamese (as-IN).
-   * Supported languages: bn-IN, en-IN, gu-IN, hi-IN, kn-IN, ml-IN, mr-IN, od-IN, pa-IN, ta-IN, te-IN
-   * This function will always return mock audio for Assamese.
+   * Uses Microsoft Azure TTS with Assamese neural voices:
+   * - as-IN-YashicaNeural (Female)
+   * - as-IN-PriyomNeural (Male)
    */
-  async textToSpeech(text: string): Promise<{ audioBase64: string; format: string }> {
-    // LIMITATION: Sarvam AI TTS does not support Assamese
-    // Always return mock for now
-    await this.mockDelay(500);
-    console.log(`⚠️ TTS not available for Assamese. Text: "${text}"`);
-    return {
-      audioBase64: '',
-      format: 'mock'
-    };
-
-    // Original API code kept for reference (currently disabled due to lack of Assamese support)
-    /*
-    try {
-      const requestBody = {
-        text: text,
-        target_language_code: 'as-IN',  // NOT SUPPORTED
-        speaker: 'anushka'
-      };
-
-      const response = await fetch(`${SARVAM_BASE_URL}/text-to-speech`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'api-subscription-key': this.apiKey
-        },
-        body: JSON.stringify(requestBody)
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`TTS API failed: ${response.status}`, errorText);
-        throw new Error(`TTS API failed: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return {
-        audioBase64: data.audio || data.audios?.[0] || '',
-        format: 'audio/wav'
-      };
-    } catch (error) {
-      console.error('TTS error:', error);
+  async textToSpeech(text: string, voice: 'female' | 'male' = 'female'): Promise<{ audioBase64: string; format: string }> {
+    // Check if Azure credentials are available
+    if (!AZURE_SPEECH_KEY || AZURE_SPEECH_KEY.length < 10) {
+      console.warn('⚠️ Azure Speech credentials not configured. Using mock TTS.');
+      await this.mockDelay(500);
       return {
         audioBase64: '',
         format: 'mock'
       };
     }
-    */
+
+    try {
+      // Select voice based on preference
+      const voiceName = voice === 'female' ? 'as-IN-YashicaNeural' : 'as-IN-PriyomNeural';
+
+      // Create SSML for Azure TTS
+      const ssml = `<speak version='1.0' xml:lang='as-IN'>
+        <voice name='${voiceName}'>${text}</voice>
+      </speak>`;
+
+      console.log(`🔊 Azure TTS request: "${text}" with voice ${voiceName}`);
+
+      // Call Azure Speech Service
+      const response = await fetch(
+        `https://${AZURE_REGION}.tts.speech.microsoft.com/cognitiveservices/v1`,
+        {
+          method: 'POST',
+          headers: {
+            'Ocp-Apim-Subscription-Key': AZURE_SPEECH_KEY,
+            'Content-Type': 'application/ssml+xml',
+            'X-Microsoft-OutputFormat': 'audio-16khz-32kbitrate-mono-mp3'
+          },
+          body: ssml
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Azure TTS failed: ${response.status}`, errorText);
+        throw new Error(`Azure TTS failed: ${response.status}`);
+      }
+
+      // Convert audio to base64 (browser-compatible)
+      const audioBuffer = await response.arrayBuffer();
+      const uint8Array = new Uint8Array(audioBuffer);
+      const binaryString = uint8Array.reduce((acc, byte) => acc + String.fromCharCode(byte), '');
+      const base64 = btoa(binaryString);
+
+      console.log(`✅ Azure TTS success: ${base64.length} chars, ${audioBuffer.byteLength} bytes`);
+
+      return {
+        audioBase64: base64,
+        format: 'audio/mp3'
+      };
+    } catch (error) {
+      console.error('Azure TTS error:', error);
+      // Return mock on error
+      return {
+        audioBase64: '',
+        format: 'mock'
+      };
+    }
   }
 
   /**
@@ -154,20 +174,26 @@ export class SarvamClient {
    */
   async playAudio(audioBase64: string, format: string): Promise<void> {
     if (format === 'mock' || !audioBase64) {
-      console.log('🔊 Mock audio playback');
+      console.log('🔊 Mock audio playback (no audio available)');
       return;
     }
 
     try {
-      const audioBlob = this.base64ToBlob(audioBase64, 'audio/wav');
+      // Determine MIME type based on format
+      const mimeType = format === 'audio/mp3' ? 'audio/mp3' : 'audio/wav';
+
+      const audioBlob = this.base64ToBlob(audioBase64, mimeType);
       const audioUrl = URL.createObjectURL(audioBlob);
       const audio = new Audio(audioUrl);
+
+      console.log(`🔊 Playing audio: ${mimeType}, ${audioBase64.length} chars`);
 
       await audio.play();
 
       // Cleanup after playing
       audio.addEventListener('ended', () => {
         URL.revokeObjectURL(audioUrl);
+        console.log('✅ Audio playback completed');
       });
     } catch (error) {
       console.error('Audio playback error:', error);
