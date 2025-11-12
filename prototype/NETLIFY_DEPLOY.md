@@ -35,9 +35,12 @@ Complete guide to deploy your Assamese learning app to Netlify.
 4. **Add Environment Variables**
    Click "Show advanced" → "Add environment variables":
    ```
-   NEXT_PUBLIC_SARVAM_API_KEY = sk_mikyq6wr_0k9GRWhsMCywPb5jwKXqy2c9
-   SARVAM_AP_API_KEY = sk_mikyq6wr_0k9GRWhsMCywPb5jwKXqy2c9
+   NEXT_PUBLIC_SARVAM_API_KEY = your_sarvam_api_key_here
+   SARVAM_AP_API_KEY = your_sarvam_api_key_here
    ```
+
+   **IMPORTANT:** Use your actual Sarvam AI API key from https://www.sarvam.ai/
+   NEVER commit API keys to git repositories!
 
 5. **Deploy!**
    - Click "Deploy site"
@@ -69,9 +72,9 @@ netlify init
 # - Publish directory: .next
 # - Base directory: (leave empty, we're already in prototype/)
 
-# Set environment variables
-netlify env:set NEXT_PUBLIC_SARVAM_API_KEY "sk_mikyq6wr_0k9GRWhsMCywPb5jwKXqy2c9"
-netlify env:set SARVAM_AP_API_KEY "sk_mikyq6wr_0k9GRWhsMCywPb5jwKXqy2c9"
+# Set environment variables (use your actual API key)
+netlify env:set NEXT_PUBLIC_SARVAM_API_KEY "your_sarvam_api_key_here"
+netlify env:set SARVAM_AP_API_KEY "your_sarvam_api_key_here"
 
 # Deploy!
 netlify deploy --prod

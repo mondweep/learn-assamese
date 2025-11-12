@@ -13,9 +13,18 @@ node_modules
 # Production
 /build
 
-# Environment
-.env*.local
+# Environment - NEVER COMMIT THESE
 .env
+.env*.local
+.env.development
+.env.test
+.env.production
+*.pem
+
+# API Keys and Secrets
+**/secrets.json
+**/*secret*
+**/*key*.json
 
 # Debug
 npm-debug.log*
@@ -35,3 +44,6 @@ Thumbs.db
 
 # Vercel
 .vercel
+
+# Netlify
+.netlify
