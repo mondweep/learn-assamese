@@ -6,7 +6,8 @@ AI-powered language learning platform for Assamese diaspora communities. This is
 
 - ✅ **5 Complete Lessons** - Greetings, Common Phrases, Numbers, Family, Basic Verbs
 - ✅ **Interactive Exercises** - Multiple choice questions with immediate feedback
-- ✅ **Sarvam AI Integration** - Translation and Text-to-Speech for Assamese
+- ✅ **AI-Powered Translation** - Sarvam AI for English ↔ Assamese translation
+- ✅ **Text-to-Speech** - Microsoft Azure neural voices for Assamese pronunciation
 - ✅ **Cultural Context** - Each lesson includes cultural notes
 - ✅ **Modern UI** - Beautiful, responsive design with Assamese script
 - ✅ **AI Demo** - Try translation between English and Assamese
@@ -29,17 +30,28 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-### Sarvam AI Setup (Optional)
+### AI Services Setup (Optional)
 
-The prototype works in **demo mode** without an API key. To activate real AI features:
+The prototype works in **demo mode** without API keys. To activate real AI features:
 
+#### Sarvam AI (Translation)
 1. Sign up at https://www.sarvam.ai/
 2. Get your API key
-3. Create `.env.local` file:
+3. Add to `.env.local`:
 ```bash
 NEXT_PUBLIC_SARVAM_API_KEY=your_api_key_here
-SARVAM_AP_API_KEY=your_api_key_here
 ```
+
+#### Microsoft Azure (Text-to-Speech)
+1. Create free Azure account: https://azure.microsoft.com/free/
+2. Create Speech Service resource (Free F0 tier)
+3. Add to `.env.local`:
+```bash
+NEXT_PUBLIC_AZURE_SPEECH_KEY=your_azure_key_here
+NEXT_PUBLIC_AZURE_REGION=your_region
+```
+
+See [AZURE_TTS_INTEGRATION.md](../AZURE_TTS_INTEGRATION.md) for detailed setup instructions.
 
 ## 📁 Project Structure
 
