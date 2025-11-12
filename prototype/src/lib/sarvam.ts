@@ -54,7 +54,8 @@ export class SarvamClient {
       const requestBody = {
         input: text,
         source_language_code: sourceLang,
-        target_language_code: targetLanguageCode
+        target_language_code: targetLanguageCode,
+        model: 'sarvam-translate:v1'  // Required for Assamese support
       };
 
       console.log('Translation API request:', { url: `${SARVAM_BASE_URL}/translate`, body: requestBody });
@@ -94,29 +95,29 @@ export class SarvamClient {
   /**
    * Convert Assamese text to speech
    * Returns base64 encoded audio data
+   *
+   * NOTE: Sarvam AI TTS does NOT support Assamese (as-IN).
+   * Supported languages: bn-IN, en-IN, gu-IN, hi-IN, kn-IN, ml-IN, mr-IN, od-IN, pa-IN, ta-IN, te-IN
+   * This function will always return mock audio for Assamese.
    */
   async textToSpeech(text: string): Promise<{ audioBase64: string; format: string }> {
-    // Mock TTS for demo
-    if (this.useMock) {
-      await this.mockDelay(1000);
-      console.log(`🔊 Mock TTS: Playing "${text}"`);
-      // Return empty audio (in real scenario, would return actual audio)
-      return {
-        audioBase64: '',
-        format: 'mock'
-      };
-    }
+    // LIMITATION: Sarvam AI TTS does not support Assamese
+    // Always return mock for now
+    await this.mockDelay(500);
+    console.log(`⚠️ TTS not available for Assamese. Text: "${text}"`);
+    return {
+      audioBase64: '',
+      format: 'mock'
+    };
 
-    // Real API call
+    // Original API code kept for reference (currently disabled due to lack of Assamese support)
+    /*
     try {
       const requestBody = {
-        inputs: [text],
-        target_language_code: 'as-IN',
-        speaker: 'anushka',
-        model: 'bulbul:v2'
+        text: text,
+        target_language_code: 'as-IN',  // NOT SUPPORTED
+        speaker: 'anushka'
       };
-
-      console.log('TTS API request:', { url: `${SARVAM_BASE_URL}/text-to-speech`, body: requestBody });
 
       const response = await fetch(`${SARVAM_BASE_URL}/text-to-speech`, {
         method: 'POST',
@@ -134,19 +135,18 @@ export class SarvamClient {
       }
 
       const data = await response.json();
-      console.log('TTS API response:', data);
       return {
-        audioBase64: data.audios[0],
+        audioBase64: data.audio || data.audios?.[0] || '',
         format: 'audio/wav'
       };
     } catch (error) {
       console.error('TTS error:', error);
-      // Return mock audio on error
       return {
         audioBase64: '',
         format: 'mock'
       };
     }
+    */
   }
 
   /**
