@@ -168,7 +168,9 @@ This is currently a community-driven project. We're exploring:
 
 ## 📜 License
 
-[To be determined]
+MIT License - see [LICENSE](LICENSE) file for details
+
+This project is open source and free to use, modify, and distribute under the MIT License.
 
 ## 🙏 Acknowledgments
 
