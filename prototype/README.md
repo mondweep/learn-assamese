@@ -113,37 +113,28 @@ npm run build
 npm run start
 ```
 
-### Deploy to Netlify (Recommended)
+### Deploy to Netlify
+
+This app is configured for Netlify deployment with optimized settings.
 
 **Quick Deploy via Dashboard:**
 1. Go to https://app.netlify.com/
-2. "Add new site" → "Import from Git"
-3. Select repository and branch
-4. Set base directory: `prototype`
-5. Build command: `npm run build`
-6. Publish directory: `.next`
-7. Add environment variables:
-   - `NEXT_PUBLIC_SARVAM_API_KEY`
-   - `SARVAM_AP_API_KEY`
-8. Deploy!
+2. Click "Add new site" → "Import from Git"
+3. Select your repository and branch
+4. Configuration (auto-detected from `netlify.toml`):
+   - Base directory: `prototype`
+   - Build command: `npm run build`
+   - Publish directory: `.next`
+5. Add environment variables:
+   ```
+   NEXT_PUBLIC_SARVAM_API_KEY = your_sarvam_api_key
+   SARVAM_AP_API_KEY = your_sarvam_api_key
+   ```
+6. Click "Deploy site"
 
-**Full guide:** See [NETLIFY_DEPLOY.md](./NETLIFY_DEPLOY.md)
+**Complete deployment guide:** See [NETLIFY_DEPLOY.md](./NETLIFY_DEPLOY.md)
 
-### Deploy to Vercel (Alternative)
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel
-
-# Add environment variables in Vercel dashboard
-NEXT_PUBLIC_SARVAM_API_KEY=your_key
-SARVAM_AP_API_KEY=your_key
-```
-
-The app will automatically use real Sarvam AI when deployed with API keys.
+The app will automatically use real Sarvam AI translation and text-to-speech when deployed with API keys configured.
 
 ## 🎨 Design System
 
