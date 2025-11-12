@@ -8,6 +8,16 @@ const SARVAM_BASE_URL = 'https://api.sarvam.ai';
 const AZURE_SPEECH_KEY = process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY || process.env.AZURE_SPEECH_KEY || '';
 const AZURE_REGION = process.env.NEXT_PUBLIC_AZURE_REGION || process.env.AZURE_REGION || 'eastus';
 
+// Debug: Log what we're seeing (without exposing full key)
+console.log('🔍 Azure Config Debug:', {
+  hasKey: !!AZURE_SPEECH_KEY,
+  keyLength: AZURE_SPEECH_KEY.length,
+  keyPrefix: AZURE_SPEECH_KEY.substring(0, 5) + '...',
+  region: AZURE_REGION,
+  env_NEXT_PUBLIC_AZURE_SPEECH_KEY: typeof process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY,
+  env_AZURE_SPEECH_KEY: typeof process.env.AZURE_SPEECH_KEY,
+});
+
 // Mock data for demo when API is not available
 const mockTranslations: Record<string, string> = {
   'Hello': 'নমস্কাৰ',

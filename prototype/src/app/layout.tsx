@@ -26,7 +26,15 @@ export default function RootLayout({
               Built with ❤️ for the Assamese diaspora community
             </p>
             <p className="text-sm text-gray-500 mt-2">
-              Powered by Sarvam.ai - India's Sovereign AI
+              Powered by <a href="https://www.sarvam.ai/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Sarvam.ai</a> (Translation)
+              {' & '}
+              <a href="https://azure.microsoft.com/services/cognitive-services/speech-services/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Microsoft Azure</a> (Text-to-Speech)
+            </p>
+            <p className="text-sm text-gray-500 mt-3">
+              Questions? Connect with me on{' '}
+              <a href="https://www.linkedin.com/in/mondweepchakravorty/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                LinkedIn
+              </a>
             </p>
           </div>
         </footer>

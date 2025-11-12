@@ -99,7 +99,9 @@ Each lesson includes:
 - **Frontend:** Next.js 14, React, TypeScript
 - **Styling:** Tailwind CSS
 - **Fonts:** Noto Sans Assamese (Google Fonts)
-- **AI:** Sarvam.ai (Translation, TTS)
+- **AI Services:**
+  - **Sarvam.ai** - English ↔ Assamese translation
+  - **Microsoft Azure Speech** - Assamese text-to-speech (neural voices)
 - **Icons:** lucide-react
 
 ## 🌟 Key Components
@@ -110,8 +112,10 @@ Main interface for learning vocabulary and completing exercises. Shows Assamese 
 ### Exercise System
 Interactive multiple-choice questions with immediate feedback, explanations, and progress tracking.
 
-### Sarvam AI Integration
-Client wrapper for Sarvam.ai APIs with mock fallback for development. Supports translation (English ↔ Assamese) and text-to-speech.
+### AI Services Integration
+Client wrapper for Sarvam.ai (translation) and Microsoft Azure (TTS) with intelligent fallback for development:
+- **Sarvam.ai** - Translation between English and Assamese (model: sarvam-translate:v1)
+- **Azure Speech** - High-quality Assamese pronunciation with neural voices (Yashica, Priyom)
 
 ### TranslationDemo
 Interactive demo page where users can try AI translation and hear Assamese pronunciation.
@@ -140,13 +144,14 @@ This app is configured for Netlify deployment with optimized settings.
 5. Add environment variables:
    ```
    NEXT_PUBLIC_SARVAM_API_KEY = your_sarvam_api_key
-   SARVAM_AP_API_KEY = your_sarvam_api_key
+   NEXT_PUBLIC_AZURE_SPEECH_KEY = your_azure_speech_key
+   NEXT_PUBLIC_AZURE_REGION = your_azure_region (e.g., eastus, uksouth)
    ```
 6. Click "Deploy site"
 
-**Complete deployment guide:** See [NETLIFY_DEPLOY.md](./NETLIFY_DEPLOY.md)
+**Complete deployment guide:** See [NETLIFY_DEPLOY.md](./NETLIFY_DEPLOY.md) and [AZURE_TTS_INTEGRATION.md](../AZURE_TTS_INTEGRATION.md)
 
-The app will automatically use real Sarvam AI translation and text-to-speech when deployed with API keys configured.
+The app will automatically use real Sarvam AI translation and Azure text-to-speech when deployed with API keys configured.
 
 ## 🎨 Design System
 
@@ -178,17 +183,18 @@ npm run dev
 ## 📝 Development Notes
 
 ### Mock Mode
-The app runs in mock mode without Sarvam API key:
+The app runs in mock mode without API keys:
 - Translation uses predefined dictionary
 - TTS shows console log instead of playing audio
 - All UI functionality works normally
 - Perfect for development and demo
 
 ### Real AI Mode
-When API key is provided:
-- Real English ↔ Assamese translation
-- Authentic Assamese pronunciation with TTS
-- Full Sarvam.ai capabilities
+When API keys are provided:
+- **Translation:** Real English ↔ Assamese translation via Sarvam.ai
+- **Text-to-Speech:** Authentic Assamese pronunciation via Microsoft Azure
+- **Voices:** Female (Yashica) and Male (Priyom) neural voices
+- **Free Tier:** Azure provides 500k characters/month free
 
 ## 🤝 Contributing
 
@@ -213,7 +219,8 @@ ISC
 
 ## 🙏 Acknowledgments
 
-- **Sarvam.ai** - India's Sovereign AI for Assamese language support
+- **Sarvam.ai** - India's Sovereign AI for Assamese translation
+- **Microsoft Azure** - Neural text-to-speech with Assamese voice support
 - **Assamese Diaspora Community** - For inspiration and validation
 - **research-swarm** - For comprehensive feasibility research
 - **agentic-flow** - For accelerated prototyping

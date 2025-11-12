@@ -62,14 +62,14 @@ export default function AboutPage() {
             <h3 className="font-bold text-xl mb-3 text-assamese-secondary">🇮🇳 Sarvam.ai Launch</h3>
             <p>
               India's Government-backed Sovereign AI now provides comprehensive Assamese
-              language support - translation, speech recognition, and text-to-speech.
+              language support including translation capabilities.
             </p>
           </div>
           <div className="bg-assamese-bg p-6 rounded-lg">
-            <h3 className="font-bold text-xl mb-3 text-assamese-secondary">🚀 Modern Tech Stack</h3>
+            <h3 className="font-bold text-xl mb-3 text-assamese-secondary">🎤 Azure Speech Service</h3>
             <p>
-              AI/ML capabilities that weren't available even 2 years ago now make
-              interactive, intelligent language learning possible.
+              Microsoft Azure's neural text-to-speech now supports Assamese, enabling
+              high-quality pronunciation and audio learning experiences.
             </p>
           </div>
         </div>
@@ -89,12 +89,12 @@ export default function AboutPage() {
             </ul>
           </div>
           <div>
-            <h3 className="font-bold text-lg mb-2">AI/ML</h3>
+            <h3 className="font-bold text-lg mb-2">AI Services</h3>
             <ul className="text-gray-700 space-y-1">
-              <li>• Sarvam.ai APIs</li>
-              <li>• Translation</li>
-              <li>• Speech-to-Text</li>
-              <li>• Text-to-Speech</li>
+              <li>• Sarvam.ai (Translation)</li>
+              <li>• Microsoft Azure TTS</li>
+              <li>• Neural voices (Assamese)</li>
+              <li>• Real-time processing</li>
             </ul>
           </div>
           <div>
@@ -125,7 +125,8 @@ export default function AboutPage() {
           <ul className="space-y-2">
             <li>✅ 5 complete lessons (Greetings, Phrases, Numbers, Family, Verbs)</li>
             <li>✅ Interactive exercises with feedback</li>
-            <li>✅ Sarvam AI integration (translation & TTS)</li>
+            <li>✅ AI-powered translation (Sarvam.ai)</li>
+            <li>✅ Neural text-to-speech (Microsoft Azure)</li>
             <li>✅ Cultural context for each lesson</li>
             <li>✅ Mobile-responsive design</li>
           </ul>
@@ -159,6 +160,46 @@ export default function AboutPage() {
         </div>
       </div>
 
+      {/* Open Source */}
+      <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <h2 className="text-3xl font-bold mb-6">🌟 Open Source Project</h2>
+        <p className="text-lg text-gray-700 mb-4">
+          Learn Assamese is an <strong>open-source project</strong> built with love for the
+          Assamese diaspora community. We believe in transparency, collaboration, and
+          community-driven development.
+        </p>
+        <div className="bg-gray-50 rounded-lg p-6 mb-4">
+          <h3 className="font-bold text-xl mb-3">Contribute on GitHub</h3>
+          <p className="text-gray-700 mb-4">
+            Whether you're a developer, designer, linguist, or language enthusiast -
+            your contributions are welcome! Help us improve lessons, fix bugs, add features,
+            or translate content.
+          </p>
+          <a
+            href="https://github.com/mondweep/learn-assamese"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-all"
+          >
+            View on GitHub →
+          </a>
+        </div>
+        <div className="grid md:grid-cols-3 gap-4 text-center">
+          <div className="bg-assamese-bg p-4 rounded-lg">
+            <p className="font-bold text-2xl text-assamese-primary">MIT License</p>
+            <p className="text-sm text-gray-600">Free to use & modify</p>
+          </div>
+          <div className="bg-assamese-bg p-4 rounded-lg">
+            <p className="font-bold text-2xl text-assamese-primary">Community-Driven</p>
+            <p className="text-sm text-gray-600">Built by contributors</p>
+          </div>
+          <div className="bg-assamese-bg p-4 rounded-lg">
+            <p className="font-bold text-2xl text-assamese-primary">Open Roadmap</p>
+            <p className="text-sm text-gray-600">Transparent development</p>
+          </div>
+        </div>
+      </div>
+
       {/* Call to Action */}
       <div className="bg-gradient-to-b from-assamese-bg to-white rounded-lg p-8 text-center">
         <div className="flex justify-center mb-6">
@@ -184,7 +225,7 @@ export default function AboutPage() {
           </Link>
         </div>
         <p className="text-sm text-gray-600 mt-8">
-          Built with research-swarm and agentic-flow • Powered by Sarvam.ai
+          Built with research-swarm and agentic-flow • Powered by Sarvam.ai & Microsoft Azure
         </p>
       </div>
     </div>
