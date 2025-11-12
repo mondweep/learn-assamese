@@ -51,28 +51,31 @@ export class SarvamClient {
       const sourceLang = targetLang === 'as' ? 'en-IN' : 'as-IN';
       const targetLanguageCode = targetLang === 'as' ? 'as-IN' : 'en-IN';
 
+      const requestBody = {
+        input: text,
+        source_language_code: sourceLang,
+        target_language_code: targetLanguageCode
+      };
+
+      console.log('Translation API request:', { url: `${SARVAM_BASE_URL}/translate`, body: requestBody });
+
       const response = await fetch(`${SARVAM_BASE_URL}/translate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'api-subscription-key': this.apiKey
         },
-        body: JSON.stringify({
-          input: text,
-          source_language_code: sourceLang,
-          target_language_code: targetLanguageCode,
-          speaker_gender: 'Female',
-          mode: 'formal',
-          model: 'mayura:v1',
-          enable_preprocessing: true
-        })
+        body: JSON.stringify(requestBody)
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Translation API failed: ${response.status}`, errorText);
         throw new Error(`Translation API failed: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log('Translation API response:', data);
       return {
         translatedText: data.translated_text,
         sourceLanguage: sourceLang
@@ -106,30 +109,32 @@ export class SarvamClient {
 
     // Real API call
     try {
+      const requestBody = {
+        inputs: [text],
+        target_language_code: 'as-IN',
+        speaker: 'anushka',
+        model: 'bulbul:v2'
+      };
+
+      console.log('TTS API request:', { url: `${SARVAM_BASE_URL}/text-to-speech`, body: requestBody });
+
       const response = await fetch(`${SARVAM_BASE_URL}/text-to-speech`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'api-subscription-key': this.apiKey
         },
-        body: JSON.stringify({
-          inputs: [text],
-          target_language_code: 'as-IN',
-          speaker: 'meera',
-          pitch: 0,
-          pace: 1.0,
-          loudness: 1.5,
-          speech_sample_rate: 8000,
-          enable_preprocessing: true,
-          model: 'bulbul:v1'
-        })
+        body: JSON.stringify(requestBody)
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`TTS API failed: ${response.status}`, errorText);
         throw new Error(`TTS API failed: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log('TTS API response:', data);
       return {
         audioBase64: data.audios[0],
         format: 'audio/wav'
